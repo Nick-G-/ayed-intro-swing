@@ -1,5 +1,6 @@
 package MainMenu;
 
+import javax.annotation.Resources;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,37 +8,49 @@ import java.awt.event.ActionListener;
 public class MainMenuView extends JFrame {
 
     private JLabel titleLabel = new JLabel("Trabajo Práctico Swing");
-
     private JLabel subtitleLabel = new JLabel("Lautaro Paskevicius y Nicolás Gargano");
+    private JPanel titlesLabel = new Titles(new GridLayout(2,1),titleLabel,subtitleLabel);
     private JButton startGameButton = createButton("Start Game");
     private JButton settingsButton = createButton("Settings");
     private JButton exitButton = createButton("Exit");
-    private Container container = this.getContentPane();
+    private final JPanel MenuButtons = new MenuButtons(startGameButton,settingsButton,exitButton);
 
     public MainMenuView() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Main Menu");
-        setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
 
-        addComponentToContainer(titleLabel);
-        addComponentToContainer(subtitleLabel);
-        addComponentToContainer(startGameButton);
-        addComponentToContainer(settingsButton);
-        addComponentToContainer(exitButton);
+        add(titlesLabel,BorderLayout.NORTH);
+        add(MenuButtons,BorderLayout.CENTER);
 
         pack();
+        setVisible(true);
+        setResizable(false);
         setLocationRelativeTo(null);
-    }
-
-    void addComponentToContainer(JComponent component) {
-        component.setAlignmentX(Component.CENTER_ALIGNMENT);
-        container.add(component);
     }
 
     JButton createButton(String buttonLabel) {
         JButton button = new JButton(buttonLabel);
-        button.setPreferredSize(new Dimension(1000, 50));
+        button.setPreferredSize(new Dimension(200, 50));
         return button;
+    }
+
+    class Titles extends JPanel{
+        public Titles(LayoutManager layoutManager, JLabel titleLabel, JLabel subtitleLabel){
+            super(layoutManager);
+            add(titleLabel);
+            add(subtitleLabel);
+        }
+    }
+
+    class MenuButtons extends JPanel{
+
+        public MenuButtons(JButton startGameButton, JButton settingsButton, JButton exitButton){
+            this.setLayout(new GridLayout(3,1));
+            this.add(startGameButton);
+            this.add(settingsButton);
+            this.add(exitButton);
+        }
     }
 
     void addStartGamelistener(ActionListener listenForStartGameButton) {

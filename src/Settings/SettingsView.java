@@ -7,25 +7,27 @@ import java.util.ArrayList;
 
 public class SettingsView extends JFrame {
 
-    private JLabel title = new JLabel("Settings");
+    private JLabel title = new JLabel("Settings \n");
 
-    private JPanel soundSettingContainer = createOnOffSettingContainer("Sound:");
-    private JPanel musicSettingContainer = createOnOffSettingContainer("Music:");
-    private JPanel graphicsSettingsContainer = createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing");
     private JButton backButton = new JButton("Back");
-
     private Container container = this.getContentPane();
 
     public SettingsView() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Settings");
         setLocationRelativeTo(null);
-        setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(5,1));
 
+        container.add(title);
         container.add(createOnOffSettingContainer("Sound:"));
         container.add(createOnOffSettingContainer("Music:"));
         container.add(createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing"));
         container.add(backButton);
+
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
     }
 
 
