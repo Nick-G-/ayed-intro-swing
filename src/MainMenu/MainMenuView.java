@@ -27,6 +27,8 @@ public class MainMenuView extends JFrame {
         setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
+
+        MainMenuController mainMenuController = new MainMenuController(this);
     }
 
     JButton createButton(String buttonLabel) {

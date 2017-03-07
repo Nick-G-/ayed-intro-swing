@@ -1,5 +1,8 @@
 package MainMenu;
 
+import Settings.SettingsView;
+import StartGame.StartGameView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +21,9 @@ public class MainMenuController {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            System.out.println("Start clicked");
+            System.out.println("Game Started");
+            StartGameView openGame = new StartGameView();
+            view.dispose();
         }
     }
 
@@ -27,6 +32,8 @@ public class MainMenuController {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("Settings clicked");
+            SettingsView settingsView = new SettingsView();
+            view.dispose();
         }
     }
 

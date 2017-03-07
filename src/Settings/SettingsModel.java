@@ -6,6 +6,13 @@ public class SettingsModel {
     private boolean shadowsEnabled;
     private boolean antialiasingEnabled;
 
+    public SettingsModel(boolean soundEnabled, boolean musicEnabled, boolean shadowsEnabled, boolean antialiasingEnabled) {
+        this.soundEnabled = soundEnabled;
+        this.musicEnabled = musicEnabled;
+        this.shadowsEnabled = shadowsEnabled;
+        this.antialiasingEnabled = antialiasingEnabled;
+    }
+
     public boolean isSoundEnabled() {
         return soundEnabled;
     }
@@ -44,4 +51,9 @@ public class SettingsModel {
                 "Shadows: " + (shadowsEnabled ? "On":"Off") +
                 "Antialiasing: " + (antialiasingEnabled ? "On":"Off");
     }
+
+    /*public SettingsModel saveView(SettingsView settingsView){
+        //TODO
+
+    }*/
 }
