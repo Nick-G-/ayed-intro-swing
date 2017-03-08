@@ -25,21 +25,40 @@ public class Controller {
     private GoToGameListener goToGameListener;
     private ExitListener exitListener;
 
-    private OnChangePrint onSettingsChangeListener;
-    private ShadowToggleListener shadowToggleListener;
+    private OnSettingsChangeListener onSettingsChangeListener;
+    private OnMusicTurnedOn onMusicTurnedOn;
+    private OnMusicTurnedOff onMusicTurnedOff;
+    private OnSoundTurnedOn onSoundTurnedOn;
+    private OnSoundTurnedOff onSoundTurnedOff;
+    private OnAntialiasingTurnedOn onAntialiasingTurnedOn;
+    private OnAntialiasingTurnedOff onAntialiasingTurnedOff;
+    private OnShadowsTurnedOn onShadowsTurnedOn;
+    private OnShadowsTurnedOff onShadowsTurnedOff;
 
     private CardLayout cardLayout;
 
     public Controller() {
 
+        settings = new SettingsModel();
+
+        frame = new JFrame();
 
         goToMainMenuListener = new GoToMainMenuListener();
         goToSettingsListener = new GoToSettingsListener();
         goToGameListener = new GoToGameListener();
         exitListener = new ExitListener();
 
-        settings = new SettingsModel();
-        frame = new JFrame();
+        onSettingsChangeListener = new OnSettingsChangeListener();
+
+        onMusicTurnedOn = new OnMusicTurnedOn();
+        onMusicTurnedOff = new OnMusicTurnedOff();
+        onSoundTurnedOn = new OnSoundTurnedOn();
+        onSoundTurnedOff = new OnSoundTurnedOff();
+        onAntialiasingTurnedOn = new OnAntialiasingTurnedOn();
+        onAntialiasingTurnedOff = new OnAntialiasingTurnedOff();
+        onShadowsTurnedOn = new OnShadowsTurnedOn();
+        onShadowsTurnedOff = new OnShadowsTurnedOff();
+
 
         settingsView = new SettingsView(this, settings);
         mainMenuView = new MainMenuView(this);
@@ -97,18 +116,74 @@ public class Controller {
         }
     }
 
-    class OnChangePrint implements ActionListener {
+    class OnSettingsChangeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            actionEvent.getActionCommand();
             System.out.println(settings.toText());
         }
     }
 
-    class ShadowToggleListener implements ActionListener {
+    class OnMusicTurnedOn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(settings.isShadowsEnabled());
+            settings.setMusicEnabled(true);
+            System.out.println("Music was turned on");
+        }
+    }
+
+    class OnMusicTurnedOff implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setMusicEnabled(false);
+            System.out.println("Music was turned off");
+        }
+    }
+
+    class OnSoundTurnedOn implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setSoundEnabled(true);
+            System.out.println("Sound was turned on");
+        }
+    }
+
+    class OnSoundTurnedOff implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setSoundEnabled(false);
+            System.out.println("Sound was turned off");
+        }
+    }
+
+    class OnShadowsTurnedOn implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setShadowsEnabled(true);
+            System.out.println("Shadows were turned on");
+        }
+    }
+
+    class OnShadowsTurnedOff implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setShadowsEnabled(false);
+            System.out.println("Shadows were turned off");
+        }
+    }
+
+    class OnAntialiasingTurnedOn implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setAntialiasingEnabled(true);
+            System.out.println("Antiliasing was turned on");
+        }
+    }
+
+    class OnAntialiasingTurnedOff implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            settings.setAntialiasingEnabled(false);
+            System.out.println("Antiliasing was turned off");
         }
     }
 
@@ -131,11 +206,39 @@ public class Controller {
         return exitListener;
     }
 
-    public OnChangePrint getOnSettingsChangeListener() {
+    public OnSettingsChangeListener getOnSettingsChangeListener() {
         return onSettingsChangeListener;
     }
 
-    public ShadowToggleListener getShadowToggleListener() {
-        return shadowToggleListener;
+    public OnMusicTurnedOn getOnMusicTurnedOn() {
+        return onMusicTurnedOn;
+    }
+
+    public OnMusicTurnedOff getOnMusicTurnedOff() {
+        return onMusicTurnedOff;
+    }
+
+    public OnSoundTurnedOn getOnSoundTurnedOn() {
+        return onSoundTurnedOn;
+    }
+
+    public OnSoundTurnedOff getOnSoundTurnedOff() {
+        return onSoundTurnedOff;
+    }
+
+    public OnAntialiasingTurnedOn getOnAntialiasingTurnedOn() {
+        return onAntialiasingTurnedOn;
+    }
+
+    public OnAntialiasingTurnedOff getOnAntialiasingTurnedOff() {
+        return onAntialiasingTurnedOff;
+    }
+
+    public OnShadowsTurnedOn getOnShadowsTurnedOn() {
+        return onShadowsTurnedOn;
+    }
+
+    public OnShadowsTurnedOff getOnShadowsTurnedOff() {
+        return onShadowsTurnedOff;
     }
 }

@@ -23,19 +23,38 @@ public class SettingsView extends JPanel {
     public SettingsView(Controller controller, SettingsModel settings) {
 
         this.model = new SettingsModel();
+        this.controller = controller;
 
-        setLayout(new GridLayout(5,1));
+        setLayout(new GridLayout(1, 5));
 
         add(title);
-        add(createOnOffSettingContainer("Sound:", model.isSoundEnabled(), actionEvent -> System.out.println("Music On") , actionEvent -> System.out.println("Sound Off")));
-        add(createOnOffSettingContainer("Music:", model.isMusicEnabled(), actionEvent -> System.out.println("Music On"), actionEvent -> System.out.println("Music Off")));
+        add(createOnOffSettingContainer(
+                "Sound:",
+                model.isSoundEnabled(),
+                controller.getOnSoundTurnedOn(),
+                controller.getOnSoundTurnedOff()));
+
+        add(createOnOffSettingContainer("Music:",
+                model.isMusicEnabled(),
+                controller.getOnMusicTurnedOn(),
+                controller.getOnMusicTurnedOff()));
+
+        add(createCheckBoxSetting(
+                "Shadows",
+                model.isShadowsEnabled(),
+                controller.getOnShadowsTurnedOn(),
+                controller.getOnShadowsTurnedOff()));
+
+        add(createCheckBoxSetting(
+                "Antialiasing",
+                model.isShadowsEnabled(),
+                controller.getOnAntialiasingTurnedOn(),
+                controller.getOnAntialiasingTurnedOff()));
+
 //        container.add(createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing"));
 
 
         graphicsLabel = new JLabel("Graphics");
-        shadowsCheckbox = new JCheckBox("Shadows", model.isShadowsEnabled());
-        antialiasingCheckbox = new JCheckBox("Antialiasing", model.isAntialiasingEnabled());
-
 
 
         //add backbutton listener
@@ -55,15 +74,20 @@ public class SettingsView extends JPanel {
         JRadioButton onButton = new JRadioButton("On");
         JRadioButton offButton = new JRadioButton("Off");
 
-        if(isOn) {
+        if (isOn) {
             onButton.setSelected(true);
         } else {
             offButton.setSelected(true);
         }
 
-        // Add listener to buttons
+        // Add listeners to buttons
         onButton.addActionListener(onActionListener);
+        onButton.addActionListener(controller.getOnSettingsChangeListener());
+
         offButton.addActionListener(offActionListener);
+        offButton.addActionListener(controller.getOnSettingsChangeListener());
+
+
         // Radio group makes sure only one radio is selected
         ButtonGroup radioGroup = new ButtonGroup();
         radioGroup.add(onButton);
@@ -80,30 +104,14 @@ public class SettingsView extends JPanel {
     }
 
     // Creates a simple container with a group label and however many label/checkbox pairs are desired
-    JPanel createCheckBoxSettings(String label, String... checkboxesLabels) {
+    JCheckBox createCheckBoxSetting(String label, boolean isOn, ActionListener onCheck, ActionListener onUncheck) {
 
-        JPanel container = new JPanel();
-        JLabel settingLabel = new JLabel(label);
-        JPanel checkboxesPanel = new JPanel();
+        JCheckBox checkBox = new JCheckBox(label, isOn);
+        checkBox.addActionListener(controller.getOnSettingsChangeListener());
+//        checkBox.addActionListener(onCheck);
+//        checkBox.addActionListener(onUncheck);
 
-        for (String checkboxLabel : checkboxesLabels) {
-            JCheckBox checkbox = new JCheckBox(checkboxLabel);
-            checkbox.addActionListener(actionEvent -> {
-                if(checkbox.isSelected()) {
-                    System.out.println(checkboxLabel + " On");
-                }else{
-                    System.out.println(checkboxLabel + " Off");
-                }
-            });
-            checkboxesPanel.add(checkbox);
-        }
-
-        container.add(settingLabel);
-        container.add(checkboxesPanel);
-
-        setLayout(new FlowLayout(1));
-
-        return container;
+        return checkBox;
     }
 
 
