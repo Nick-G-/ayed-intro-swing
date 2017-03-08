@@ -18,10 +18,14 @@ public class SettingsModel {
     }
 
     public String toText() {
-        return "Sound: " + (soundEnabled ? "On":"Off") +
-                "Music: " + (musicEnabled ? "On":"Off") +
-                "Shadows: " + (shadowsEnabled ? "On":"Off") +
-                "Antialiasing: " + (antialiasingEnabled ? "On":"Off");
+        return  "\n------------------- \n" +
+                "Current Settings \n" +
+                "------------------- \n" +
+                "Sound:\t\t\t" + (soundEnabled ? "On":"Off") + "\n" +
+                "Music:\t\t\t" + (musicEnabled ? "On":"Off") + "\n" +
+                "Shadows:\t\t" + (shadowsEnabled ? "On":"Off") + "\n" +
+                "Antialiasing:\t" + (antialiasingEnabled ? "On":"Off") + "\n" +
+                "------------------- \n";
     }
 
     /*public model.SettingsModel saveView(views.SettingsView views.SettingsView){
