@@ -182,8 +182,14 @@ public class Controller {
     class OnAntialiasingToggled implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            settings.setAntialiasingEnabled(true);
-            System.out.println("Antiliasing was turned on");
+            if(settings.isAntialiasingEnabled()) {
+                settings.setAntialiasingEnabled(false);
+                System.out.println("Antialiasing was turned off");
+            }
+            else {
+                settings.setAntialiasingEnabled(true);
+                System.out.println("Antialiasing was turned on");
+            }
         }
     }
 
