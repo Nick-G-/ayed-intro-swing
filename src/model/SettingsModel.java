@@ -1,4 +1,4 @@
-package Settings;
+package model;
 
 public class SettingsModel {
     private boolean soundEnabled;
@@ -12,6 +12,22 @@ public class SettingsModel {
         this.shadowsEnabled = shadowsEnabled;
         this.antialiasingEnabled = antialiasingEnabled;
     }
+
+    public SettingsModel() {
+        this(true, true, true, true);
+    }
+
+    public String toText() {
+        return "Sound: " + (soundEnabled ? "On":"Off") +
+                "Music: " + (musicEnabled ? "On":"Off") +
+                "Shadows: " + (shadowsEnabled ? "On":"Off") +
+                "Antialiasing: " + (antialiasingEnabled ? "On":"Off");
+    }
+
+    /*public model.SettingsModel saveView(views.SettingsView views.SettingsView){
+        //TODO
+
+    }*/
 
     public boolean isSoundEnabled() {
         return soundEnabled;
@@ -45,15 +61,4 @@ public class SettingsModel {
         this.antialiasingEnabled = antialiasingEnabled;
     }
 
-    String toText() {
-        return "Sound: " + (soundEnabled ? "On":"Off") +
-                "Music: " + (musicEnabled ? "On":"Off") +
-                "Shadows: " + (shadowsEnabled ? "On":"Off") +
-                "Antialiasing: " + (antialiasingEnabled ? "On":"Off");
-    }
-
-    /*public SettingsModel saveView(SettingsView settingsView){
-        //TODO
-
-    }*/
 }

@@ -1,52 +1,65 @@
-package Settings;
+package views;
 
-import MainMenu.MainMenuView;
+import controller.Controller;
+import model.SettingsModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.function.Consumer;
 
-public class SettingsView extends JFrame {
+public class SettingsView extends JPanel {
 
     private JLabel title = new JLabel("Settings \n");
     private JButton backButton = new JButton("Back");
-    private Container container = this.getContentPane();
 
-    public SettingsView() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Settings");
-        setLocationRelativeTo(null);
+    private SettingsModel model;
+    private Controller controller;
+
+    private JLabel graphicsLabel;
+    private JCheckBox shadowsCheckbox;
+    private JCheckBox antialiasingCheckbox;
+
+
+    public SettingsView(Controller controller, SettingsModel settings) {
+
+        this.model = new SettingsModel();
+
         setLayout(new GridLayout(5,1));
 
-        container.add(title);
-        container.add(createOnOffSettingContainer("Sound:", actionEvent -> System.out.println("Sound On"), actionEvent -> System.out.println("Sound Off")));
-        container.add(createOnOffSettingContainer("Music:", actionEvent -> System.out.println("Music On"), actionEvent -> System.out.println("Music Off")));
-        container.add(createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing"));
+        add(title);
+        add(createOnOffSettingContainer("Sound:", model.isSoundEnabled(), actionEvent -> System.out.println("Music On") , actionEvent -> System.out.println("Sound Off")));
+        add(createOnOffSettingContainer("Music:", model.isMusicEnabled(), actionEvent -> System.out.println("Music On"), actionEvent -> System.out.println("Music Off")));
+//        container.add(createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing"));
 
-        backButton.addActionListener(
-                actionEvent -> {    MainMenuView mainMenuView = new MainMenuView();
-                                    this.dispose();
-                }
-        );
-        container.add(backButton);
 
-        pack();
-        setLocationRelativeTo(null);
-        setResizable(false);
+        graphicsLabel = new JLabel("Graphics");
+        shadowsCheckbox = new JCheckBox("Shadows", model.isShadowsEnabled());
+        antialiasingCheckbox = new JCheckBox("Antialiasing", model.isAntialiasingEnabled());
+
+
+
+        //add backbutton listener
+        add(backButton);
+        backButton.addActionListener(controller.getGoToMainMenuListener());
+
         setVisible(true);
     }
 
 
     // Creates a simple container with a label and two radio buttons: one for enabling and one for disabling
-    JPanel createOnOffSettingContainer(String label, ActionListener onActionListener, ActionListener offActionListener) {
+    JPanel createOnOffSettingContainer(String label, boolean isOn, ActionListener onActionListener, ActionListener offActionListener) {
 
         JPanel container = new JPanel();
         JLabel settingLabel = new JLabel(label);
 
         JRadioButton onButton = new JRadioButton("On");
         JRadioButton offButton = new JRadioButton("Off");
+
+        if(isOn) {
+            onButton.setSelected(true);
+        } else {
+            offButton.setSelected(true);
+        }
 
         // Add listener to buttons
         onButton.addActionListener(onActionListener);
