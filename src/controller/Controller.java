@@ -70,9 +70,7 @@ public class Controller {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    public void initialize() {
+        frame.setResizable(false);
     }
 
     class GoToMainMenuListener implements ActionListener {

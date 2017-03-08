@@ -25,7 +25,7 @@ public class SettingsView extends JPanel {
         this.model = new SettingsModel();
         this.controller = controller;
 
-        setLayout(new GridLayout(1, 5));
+        setLayout(new GridLayout(0, 1));
 
         add(title);
         add(createOnOffSettingContainer(
