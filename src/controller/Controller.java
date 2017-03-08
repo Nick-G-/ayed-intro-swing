@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+    /*
+        A Controller is in charge of responding to user interaction and changing the model as necessary
+    */
 public class Controller {
     private SettingsModel settings;
 
@@ -35,11 +38,15 @@ public class Controller {
 
     private CardLayout cardLayout;
 
+     /*
+        Creates Controller and initializes its listeners and views within a JFrame
+     */
     public Controller() {
 
         settings = new SettingsModel();
 
         frame = new JFrame();
+        frame.setTitle("Main Menu");
 
         goToMainMenuListener = new GoToMainMenuListener();
         goToSettingsListener = new GoToSettingsListener();
@@ -54,7 +61,6 @@ public class Controller {
         onSoundTurnedOff = new OnSoundTurnedOff();
         onAntialiasingToggled = new OnAntialiasingToggled();
         onShadowsToggled = new OnShadowsToggled();
-
 
         settingsView = new SettingsView(this, settings);
         mainMenuView = new MainMenuView(this);
@@ -74,10 +80,14 @@ public class Controller {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    /*
+        The following are the classes describing various listeners for screen transitions
+     */
     class GoToMainMenuListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            frame.setTitle("Main Menu");
             cardLayout.show(cardsPanel, "mainMenu");
             System.out.println("Going to main menu...");
         }
@@ -87,7 +97,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-
+            frame.setTitle("Game");
             cardLayout.show(cardsPanel, "game");
             System.out.println("Going to game...");
         }
@@ -97,6 +107,7 @@ public class Controller {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            frame.setTitle("Settings");
             cardLayout.show(cardsPanel, "settings");
             System.out.println("Going to settings...");
         }
@@ -110,6 +121,10 @@ public class Controller {
             System.exit(0);
         }
     }
+
+    /*
+        The following are the classes describing various listeners for settings' changes
+    */
 
     class OnSettingsChangeListener implements ActionListener {
         @Override
@@ -187,6 +202,9 @@ public class Controller {
         return goToGameListener;
     }
 
+    /*
+        The following are the getters for the listeners
+     */
     public ExitListener getExitListener() {
         return exitListener;
     }

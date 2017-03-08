@@ -4,30 +4,35 @@ import controller.Controller;
 import model.SettingsModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class SettingsView extends JPanel {
 
-    private JLabel title = new JLabel("Settings \n");
     private JButton backButton = new JButton("Back");
 
     private SettingsModel model;
     private Controller controller;
 
     private JLabel graphicsLabel;
-    private JCheckBox shadowsCheckbox;
-    private JCheckBox antialiasingCheckbox;
+    private JLabel audioLabel;
 
-
+    /*
+        Constructs a JPanel with settings for audio and video options
+     */
     public SettingsView(Controller controller, SettingsModel settings) {
 
         this.model = new SettingsModel();
         this.controller = controller;
 
         setLayout(new GridLayout(0, 1));
+        setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        add(title);
+        audioLabel = new JLabel("Audio settings");
+        audioLabel.setAlignmentX(0.5f);
+        add(audioLabel);
+
         add(createOnOffSettingContainer(
                 "Sound:",
                 model.isSoundEnabled(),
@@ -39,7 +44,8 @@ public class SettingsView extends JPanel {
                 controller.getOnMusicTurnedOn(),
                 controller.getOnMusicTurnedOff()));
 
-        graphicsLabel = new JLabel("Graphics");
+        graphicsLabel = new JLabel("Graphics settings");
+        graphicsLabel.setAlignmentX(0.5f);
         add(graphicsLabel);
 
         JPanel checkBoxes = new JPanel(new FlowLayout(1));
@@ -56,7 +62,6 @@ public class SettingsView extends JPanel {
 
         add(checkBoxes);
 
-        //add backbutton listener
         backButton.addActionListener(controller.getGoToMainMenuListener());
         add(backButton);
 
@@ -64,22 +69,25 @@ public class SettingsView extends JPanel {
     }
 
 
-    // Creates a simple container with a label and two radio buttons: one for enabling and one for disabling
+    /*
+        Creates a simple container with a label and two radio buttons: one for enabling and one for disabling.
+        The provided boolean determines which one should start selected.
+        Each button receives its corresponding listener
+     */
     JPanel createOnOffSettingContainer(String label, boolean isOn, ActionListener onActionListener, ActionListener offActionListener) {
 
         JPanel container = new JPanel();
         JLabel settingLabel = new JLabel(label);
+        settingLabel.setAlignmentX(0);
 
         container.setLayout(new FlowLayout(1));
 
         JRadioButton onButton = new JRadioButton("On");
         JRadioButton offButton = new JRadioButton("Off");
 
-        if (isOn) {
-            onButton.setSelected(true);
-        } else {
-            offButton.setSelected(true);
-        }
+        // Decide which one starts selected
+        if (isOn) { onButton.setSelected(true);}
+        else {offButton.setSelected(true);}
 
         // Add listeners to buttons
         onButton.addActionListener(controller.getOnSettingsChangeListener());
@@ -87,7 +95,6 @@ public class SettingsView extends JPanel {
 
         offButton.addActionListener(controller.getOnSettingsChangeListener());
         offButton.addActionListener(offActionListener);
-
 
         // Radio group makes sure only one radio is selected
         ButtonGroup radioGroup = new ButtonGroup();
@@ -102,7 +109,9 @@ public class SettingsView extends JPanel {
         return container;
     }
 
-    // Creates a simple container with a group label and however many label/checkbox pairs are desired
+    /*
+        Creates a simple JCheckBox with the provided label, value and toggle listener.
+     */
     JCheckBox createCheckBoxSetting(String label, boolean isOn, ActionListener onToggle) {
 
         JCheckBox checkBox = new JCheckBox(label, isOn);
@@ -110,10 +119,6 @@ public class SettingsView extends JPanel {
         checkBox.addActionListener(controller.getOnSettingsChangeListener());
         checkBox.addActionListener(onToggle);
 
-
-
         return checkBox;
     }
-
-
 }
