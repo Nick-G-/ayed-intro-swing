@@ -71,6 +71,7 @@ public class Controller {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     class GoToMainMenuListener implements ActionListener {

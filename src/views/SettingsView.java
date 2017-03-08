@@ -39,25 +39,26 @@ public class SettingsView extends JPanel {
                 controller.getOnMusicTurnedOn(),
                 controller.getOnMusicTurnedOff()));
 
-        add(createCheckBoxSetting(
+        graphicsLabel = new JLabel("Graphics");
+        add(graphicsLabel);
+
+        JPanel checkBoxes = new JPanel(new FlowLayout(1));
+
+        checkBoxes.add(createCheckBoxSetting(
                 "Shadows",
                 model.isShadowsEnabled(),
                 controller.getOnShadowsToggled()));
 
-        add(createCheckBoxSetting(
+        checkBoxes.add(createCheckBoxSetting(
                 "Antialiasing",
                 model.isShadowsEnabled(),
                 controller.getOnAntialiasingToggled()));
 
-//        container.add(createCheckBoxSettings("Graphics:", "Shadows", "Antialiasing"));
-
-
-        graphicsLabel = new JLabel("Graphics");
-
+        add(checkBoxes);
 
         //add backbutton listener
-        add(backButton);
         backButton.addActionListener(controller.getGoToMainMenuListener());
+        add(backButton);
 
         setVisible(true);
     }
@@ -68,6 +69,8 @@ public class SettingsView extends JPanel {
 
         JPanel container = new JPanel();
         JLabel settingLabel = new JLabel(label);
+
+        container.setLayout(new FlowLayout(1));
 
         JRadioButton onButton = new JRadioButton("On");
         JRadioButton offButton = new JRadioButton("Off");
@@ -96,8 +99,6 @@ public class SettingsView extends JPanel {
         container.add(onButton);
         container.add(offButton);
 
-        setLayout(new FlowLayout(1));
-
         return container;
     }
 
@@ -105,8 +106,11 @@ public class SettingsView extends JPanel {
     JCheckBox createCheckBoxSetting(String label, boolean isOn, ActionListener onToggle) {
 
         JCheckBox checkBox = new JCheckBox(label, isOn);
+
         checkBox.addActionListener(controller.getOnSettingsChangeListener());
         checkBox.addActionListener(onToggle);
+
+
 
         return checkBox;
     }

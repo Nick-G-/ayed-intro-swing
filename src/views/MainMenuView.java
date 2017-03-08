@@ -23,10 +23,11 @@ public class MainMenuView extends JPanel {
 
         JPanel buttons = new ButtonsMenu(startGameButton,settingsButton,exitButton);
 
-        setLayout(new GridLayout(0,1));
+        //setLayout(new GridLayout(0,1));
+        setLayout(new BorderLayout(10,0));
 
-        add(titles);
-        add(buttons);
+        add(titles,BorderLayout.NORTH);
+        add(buttons,BorderLayout.CENTER);
 
     }
 
@@ -40,8 +41,8 @@ public class MainMenuView extends JPanel {
         public Titles(JLabel titles, JLabel subTitles) {
             setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
-            add(titles);
-            add(subTitles);
+            add(titles,JPanel.CENTER_ALIGNMENT);
+            add(subTitles, JPanel.CENTER_ALIGNMENT);
 
             setVisible(true);
         }
@@ -50,7 +51,7 @@ public class MainMenuView extends JPanel {
     private class ButtonsMenu extends JPanel {
 
         public ButtonsMenu(JButton... buttons){
-            setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+            setLayout(new GridLayout(0,1));
 
             for(JButton e : buttons){
                 add(e);
